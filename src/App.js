@@ -1,5 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import Paginacao from './components/Paginacao';
+import PaginacaoSelector from './components/PaginacaoSelector';
 
 function App() {
 
@@ -29,23 +31,13 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <select value={itensPorPagina} onChange={(e) => setItensPorPagina(Number(e.target.value))}>
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={25}>25</option>
-        </select>
-      </div>
-
-      <div>
-        {Array.from(Array(paginas), (item, index) => {
-          return <button value={index} onClick={(e) => setPaginaAtual(Number(e.target.value))}>{index + 1}</button>
-        })}
-      </div>
+      <PaginacaoSelector itensPorPagina={itensPorPagina} setItensPorPagina={setItensPorPagina} />
+          
       {itensFiltrados.map(item => {
-        return <div className='item'><span>{item.id}</span> <span>{item.title}</span> <span>{item.completed}</span></div>
+        return <div className='item' key={item.id}><span>{item.id}</span> <span>{item.title}</span> <span>{item.completed}</span></div>
       })}
+
+      <Paginacao paginas={paginas} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} />
     </div>
   );
 }
